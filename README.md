@@ -1,8 +1,8 @@
+# Sifflet – Local PDF-Based RAG System
+
 <p align="center">
   <img src="assets/logo.png" alt="Sifflet Logo" width="180">
 </p>
-
-# Sifflet – Local PDF-Based RAG System
 
 Sifflet is a lightweight, locally operated Retrieval-Augmented Generation (RAG) application designed to transform PDF documents into searchable knowledge databases and enable context-aware question answering using Large Language Models (LLMs).
 
@@ -37,6 +37,26 @@ Currently, Sifflet supports PDF documents only. Other document formats are not s
 
 To support scanned documents, an OCR engine must be integrated into the document extraction pipeline.
 
+## Required Models and Dependencies
+
+Sifflet requires an ONNX embedding model and the llama.cpp runtime to operate locally.
+
+### Embedding Model
+
+The project uses the following multilingual embedding model:
+
+**paraphrase-multilingual-MiniLM-L12-v2 (ONNX)**
+
+[Download Embedding Model – Hugging Face](https://huggingface.co/onnx-models/paraphrase-multilingual-MiniLM-L12-v2-onnx/tree/main)
+
+### Llama.cpp Runtime
+
+Sifflet uses llama.cpp for local LLM inference.
+
+[Download llama.cpp – GitHub Releases](https://github.com/ggml-org/llama.cpp/releases)
+
+Download the appropriate Windows build compatible with your system and the application's runtime configuration.
+
 ## Configuration
 
 ### Adjusting Retrieval Results
@@ -59,7 +79,7 @@ Follow these steps to configure and run the application.
 
 ### 1. Configure the Llama Runtime
 
-Download the appropriate version of the Llama runtime required by the application.
+Download the appropriate version of the llama.cpp runtime required by the application.
 
 Extract the downloaded files and place their contents inside the project's `llama` directory.
 
@@ -67,7 +87,7 @@ Ensure that the runtime binaries and their required dependencies are available i
 
 ### 2. Configure the Embedding Model
 
-Download or export your embedding model in ONNX format.
+Download the embedding model in ONNX format.
 
 Place the following files inside the project's `embedder` directory:
 
@@ -94,6 +114,18 @@ After configuring the Llama runtime, embedding model, and Python dependencies, l
 ```bash
 python sifflet.py
 ```
+
+### 5. Database Storage Configuration
+
+You can change the database storage location through the application's settings.
+
+Choose a directory where your Windows user account has sufficient read and write permissions.
+
+> **Warning: Avoid installing or running Sifflet from the C:\ drive.**
+>
+> Windows may restrict write permissions in protected directories on the system drive, preventing Sifflet from creating, modifying, or managing its databases and associated files.
+>
+> For a smoother experience, install the application on another drive (such as D:\ or G:\) and configure the database storage location through the application settings.
 
 ## License
 
